@@ -14,88 +14,30 @@
     <packaging>war</packaging>
 
     <properties>
-        <cometd-version>${project.parent.version}</cometd-version>
+        <cometd.version>${project.parent.version}</cometd.version>
+        <spring.version>3.2.11.RELEASE</spring.version>
+        <slf4j.version>1.7.7</slf4j.version>
+  		<logback.version>1.0.9</logback.version>
     </properties>
 
+	<!-- 
     <licenses>
         <license>
             <name>Apache License Version 2.0</name>
             <url>http://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
     </licenses>
-	<!-- 
-    <scm>
-        <connection>scm:git:git://github.com/cometd/cometd-tutorials-skeleton.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/cometd/cometd-tutorials-skeleton.git</developerConnection>
-        <url>https://github.com/cometd/cometd-tutorials-skeleton</url>
-        <tag>HEAD</tag>
-    </scm>
      -->
 
-    <build>
-        <defaultGoal>install</defaultGoal>
-        <plugins>
-            <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <configuration>
-                    <overlays>
-                        <overlay/>                       
-                        <overlay>
-                            <groupId>org.cometd.javascript</groupId>
-                            <artifactId>cometd-javascript-jquery</artifactId>
-                        </overlay>
-                    </overlays>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <configuration>
-                    <scanIntervalSeconds>10</scanIntervalSeconds>
-                    <webAppConfig>
-                        <contextPath>/</contextPath>
-                    </webAppConfig>
-                </configuration>
-            </plugin>
-        </plugins>
-        <pluginManagement>
-        	<plugins>
-        		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-        		<plugin>
-        			<groupId>org.eclipse.m2e</groupId>
-        			<artifactId>lifecycle-mapping</artifactId>
-        			<version>1.0.0</version>
-        			<configuration>
-        				<lifecycleMappingMetadata>
-        					<pluginExecutions>
-        						<pluginExecution>
-        							<pluginExecutionFilter>
-        								<groupId>
-        									org.apache.felix
-        								</groupId>
-        								<artifactId>
-        									maven-bundle-plugin
-        								</artifactId>
-        								<versionRange>
-        									[2.4.0,)
-        								</versionRange>
-        								<goals>
-        									<goal>manifest</goal>
-        								</goals>
-        							</pluginExecutionFilter>
-        							<action>
-        								<ignore></ignore>
-        							</action>
-        						</pluginExecution>
-        					</pluginExecutions>
-        				</lifecycleMappingMetadata>
-        			</configuration>
-        		</plugin>
-        	</plugins>
-        </pluginManagement>
-    </build>
+    <scm>
+        <connection>scm:git:git://github.com/jmzc/cometd.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/cometd/cometd-tutorials-skeleton.git</developerConnection>
+        <url>https://github.com/jmzc/cometd/cometd-tutorials-skeleton</url>
+        <tag>HEAD</tag>
+    </scm>
 
-    <dependencies>
+
+   <dependencies>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
@@ -103,14 +45,14 @@
         <dependency>
             <groupId>org.cometd.java</groupId>
             <artifactId>bayeux-api</artifactId>
-            <version>${cometd-version}</version>
+            <version>${cometd.version}</version>
         </dependency>
        	
        	<!-- 
         <dependency>
             <groupId>org.cometd.javascript</groupId>
             <artifactId>cometd-javascript-dojo</artifactId>
-            <version>${cometd-version}</version>
+            <version>${cometd.version}</version>
             <type>war</type>
         </dependency>
          -->
@@ -118,24 +60,27 @@
          <dependency>
             <groupId>org.cometd.javascript</groupId>
             <artifactId>cometd-javascript-jquery</artifactId>
-            <version>${cometd-version}</version>
+            <version>${cometd.version}</version>
             <type>war</type>
         </dependency>
 
         <dependency>
             <groupId>org.cometd.java</groupId>
             <artifactId>cometd-java-server</artifactId>
-            <version>${cometd-version}</version>
+            <version>${cometd.version}</version>
         </dependency>
         <dependency>
             <groupId>org.cometd.java</groupId>
             <artifactId>cometd-java-annotations</artifactId>
-            <version>${cometd-version}</version>
+            <version>${cometd.version}</version>
         </dependency>
+        
+       
+        <!-- 
         <dependency>
             <groupId>org.cometd.java</groupId>
             <artifactId>cometd-websocket-jetty</artifactId>
-            <version>${cometd-version}</version>
+            <version>${cometd.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.cometd.java</groupId>
@@ -174,10 +119,163 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
+         -->
+         
+
+	    <dependency>
+	        <groupId>org.springframework</groupId>
+	        <artifactId>spring-context</artifactId>
+	         <version>${spring.version}</version>
+	    </dependency>
+	    
+	     <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
         </dependency>
+
+        <!--  
+  		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		 -->
+            
+        <dependency>
+	      	<groupId>org.slf4j</groupId>
+	      	<artifactId>jcl-over-slf4j</artifactId>
+	      	<version>${slf4j.version}</version>
+  		</dependency>
+  		
+        <dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>${logback.version}</version>
+		</dependency>
+    
+        <dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
+		</dependency>
+ 
+ 
     </dependencies>
+    <build>
+        <defaultGoal>install</defaultGoal>
+        <plugins>
+        	 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>1.6</source>
+                        <target>1.6</target>
+                        <debug>false</debug>
+                    </configuration>
+               </plugin>
+                
+                
+	            <plugin>
+	                <artifactId>maven-war-plugin</artifactId>
+	                <configuration>
+	                    <overlays>
+	                        <overlay/>                       
+	                        <overlay>
+	                            <groupId>org.cometd.javascript</groupId>
+	                            <artifactId>cometd-javascript-jquery</artifactId>
+	                        </overlay>
+	                    </overlays>
+	                </configuration>
+	            </plugin>
+	            <plugin>
+                
+                
+                    <!-- mvn clean install tomcat:run-war to deploy
+                         Look for "Running war on http://xxx" and "Setting the server's publish address to be /yyy" in console output; 
+                         WSDL browser address will be concatenation of the two: http://xxx/yyy?wsdl
+                    -->
+				
+                    <groupId>org.apache.tomcat.maven</groupId>
+                   <artifactId>tomcat7-maven-plugin</artifactId>
+   					<version>2.1</version>
+   					<configuration>
+			          <path>/</path>
+			        </configuration>
+                    <executions>
+
+                         <!--  Requires <role rolename="manager-script"/>  -->
+                            
+                        <execution>
+                            <id>deploy-tomcat</id>
+                            <goals>  
+                            	<!-- Requires <Context antiJarLocking="true" antiResourceLocking="true">  -->
+                            	<goal>undeploy</goal>                      
+                                <goal>deploy</goal>
+    
+                            </goals>
+                            <phase>pre-integration-test</phase>
+                            <configuration>
+                                <username>tomcat</username>
+                                <password>tomcat</password>
+                                <url>http://localhost:8080/manager/text</url> <!-- Tomcat 7 -->
+                            </configuration>
+                        </execution>
+                        
+                        
+                        
+                    </executions>
+                    
+                </plugin>
+        </plugins>
+        
+       <!-- <pluginManagement> section overrides aspects of the configuration of plugins, but doesn't actually enable them for use-->
+            
+        <pluginManagement>
+        	<plugins>
+        		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+        		<plugin>
+        			<groupId>org.eclipse.m2e</groupId>
+        			<artifactId>lifecycle-mapping</artifactId>
+        			<version>1.0.0</version>
+        			<configuration>
+        				<lifecycleMappingMetadata>
+        					<pluginExecutions>
+        						<pluginExecution>
+        							<pluginExecutionFilter>
+        								<groupId>org.apache.felix</groupId>
+        								<artifactId>maven-bundle-plugin</artifactId>
+        								<versionRange>[2.4.0,)</versionRange>
+        								<goals>
+        									<goal>manifest</goal>
+        								</goals>
+        							</pluginExecutionFilter>
+        							<action>
+        								<ignore></ignore>
+        							</action>
+        							</pluginExecution>
+ 
+        							<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-enforcer-plugin</artifactId>
+										<versionRange>[1.0.0,)</versionRange>
+										<goals>
+											<goal>enforce</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								   </pluginExecution>
+        					</pluginExecutions>
+        				</lifecycleMappingMetadata>
+        			</configuration>
+        		</plugin>
+        	</plugins>
+        </pluginManagement>
+    </build>
+
+ 
 
 </project>

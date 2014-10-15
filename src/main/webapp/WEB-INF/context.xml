@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	
+	<context:component-scan base-package="com.prosodie.server.service"/>
+
+	
+	
+	<bean id="service1" class="com.prosodie.server.service.ServerService" />
+
+    <bean id="bayeux" class="org.cometd.server.BayeuxServerImpl" init-method="start" destroy-method="stop">
+        <property name="options">
+            <map>
+                <entry key="logLevel" value="1" />
+                <entry key="timeout" value="15000" />
+            </map>
+        </property>
+         <property name="transports">
+            <list>
+            	<!-- 
+                <bean id="websocketTransport" class="org.cometd.websocket.server.WebSocketTransport">
+                    <constructor-arg ref="bayeux" />
+                </bean>
+                 -->
+                <bean id="jsonTransport" class="org.cometd.server.transport.JSONTransport">
+                    <constructor-arg ref="bayeux" />
+                </bean>
+                <bean id="jsonpTransport" class="org.cometd.server.transport.JSONPTransport">
+                    <constructor-arg ref="bayeux" />
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+	<!-- 
+	This ensures that CometdServlet will not create its own instance of BayeuxServer, 
+	but use the one that is already present in the servlet context, created by Spring
+	 -->
+    <bean class="org.springframework.web.context.support.ServletContextAttributeExporter">
+        <property name="attributes">
+            <map>
+                <entry key="org.cometd.bayeux">
+                    <ref bean="bayeux" />
+                </entry>
+            </map>
+        </property>
+    </bean>
+</beans>

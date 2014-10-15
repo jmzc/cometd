@@ -1,4 +1,4 @@
-package org.cometd.tutorials;
+package com.prosodie.server.service;
 
 
 
@@ -13,17 +13,12 @@ import org.cometd.bayeux.server.LocalSession;
 import org.cometd.bayeux.server.ServerChannel;
 import org.cometd.bayeux.server.ServerMessage;
 import org.cometd.bayeux.server.ServerSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 
 /*
- * The org.cometd.Client class is the server-side representation of a remote Bayeux client, 
- * that is, a client that connected successfully to the server using the Bayeux protocol.
- * 
- * It is possible to add extensions to a Client instance and add/remove listeners on a Client instance
- *
- */
-
-/*
- * http://docs.cometd.org/reference/java_server.html#java_server_services
  * 
  * A CometD service is a Java class that allow a developer to specify the code to run when Bayeux messages 
  * are received on Bayeux channels.
@@ -34,8 +29,11 @@ import org.cometd.bayeux.server.ServerSession;
  * for example in collaboration with the timesync extension.
  */
 @Service
-public class ClientHelloService
+public class ServerService
 {
+	
+	Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+	
 	@Inject
     private BayeuxServer bayeuxServer;
 	
@@ -46,7 +44,8 @@ public class ClientHelloService
     public void process(ServerSession session, ServerMessage message)
     {
 
-		System.out.printf("Received greeting '%s' from remote client %s  client: %s %n", message.getData(), session.getId() , message.getChannel());
+		
+		logger.info("Received greeting {}' from remote client {}  client: {}", message.getData(), session.getId() , message.getChannel());
                      
         String channelName = "/event/jmzc";
         
